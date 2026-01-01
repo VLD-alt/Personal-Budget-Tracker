@@ -22,3 +22,8 @@ Encapsulation: class fields + methods
 1. Open `.sln`
 2. Set C++ standard to C++17
 3. Build and Run
+
+
+Data storage
+The app uses `budget_data.txt` to store data (this file is ignored by Git).
+Example format is provided in `budget_data_example.txt`.
