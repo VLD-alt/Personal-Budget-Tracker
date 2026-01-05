@@ -2,7 +2,7 @@
 #include <string>
 #include <cctype>
 #include <filesystem>
-
+#include <utility> 
 #include "BudgetTracker.h"
 
 using namespace std;
@@ -124,7 +124,7 @@ int main() {
         cout << "4) Delete transaction\n";
         cout << "5) View all transactions\n";
         cout << "6) Filter by category\n";
-        cout << "7) Filter by date\n";
+        cout << "7) Filter by date range\n";
         cout << "8) Show report\n";
         cout << "0) Exit\n";
 
@@ -227,9 +227,21 @@ int main() {
             cout << "\n";
         }
         else if (choice == 7) {
-            string date = readDate("Date to filter (YYYY-MM-DD): ");
-            app.filterByDate(date);
+            string fromDate = readDate("From date(YYYY-MM-DD): ");
+            string toDate = readDate("To date (YYYY-MM-DD): ");
+            if (fromDate > toDate) {
+
+                swap(fromDate, toDate); 
+                cout << "Swapped dates to keep range .\n";
+
+
+            }
+            app.filterByDateRange(fromDate, toDate);
             cout << "\n";
+
+
+
+
         }
         else if (choice == 8) {
             app.report();

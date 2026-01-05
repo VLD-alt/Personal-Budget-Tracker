@@ -100,19 +100,19 @@ void BudgetTracker::filterByCategory(const string& cat) const {
     if (!any) cout << "No transactions found for this category.\n";
 }
 
-void BudgetTracker::filterByDate(const string& date) const {
+void BudgetTracker::filterByDateRange(const string& fromDate, const string& toDate) const {
     bool any = false;
     for (const auto& t : transactions_) {
-        if (t->date() == date) {
+        if (t->date() >= fromDate && t->date() <= toDate) {
             if (!any) {
-                cout << "Transactions on date: " << date << "\n";
+                cout << "Transactions from " << fromDate << " to " << toDate << "\n";
                 cout << string(70, '-') << "\n";
             }
             t->printRow();
             any = true;
         }
     }
-    if (!any) cout << "No transactions found for this date.\n";
+    if (!any) cout << "No transactions found for this date range\n";
 }
 
 double BudgetTracker::totalIncome() const {

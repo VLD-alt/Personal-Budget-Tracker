@@ -37,7 +37,7 @@ public:
 
     void listAll() const;
     void filterByCategory(const string& cat) const;
-    void filterByDate(const string& date) const;
+    void filterByDateRange(const string& fromDate, const string& toDate) const;
 
     double totalIncome() const;
     double totalExpense() const;
