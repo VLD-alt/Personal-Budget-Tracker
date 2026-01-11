@@ -2,10 +2,48 @@
 #include <string>
 #include <cctype>
 #include <filesystem>
-#include <utility> 
+#include <utility>
+#include <limits>
 #include "BudgetTracker.h"
 
 using namespace std;
+string chooseExpenseCategory() {
+    while (true) {
+        cout << "\nChoose expense category:\n";
+        cout << "1) Clothes\n";
+        cout << "2) Groceries\n";
+        cout << "3) Medicine\n";
+        cout << "4) Other (type your own)\n";
+        cout << "Option: ";
+
+        int opt;
+        if (!(cin >> opt)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Try again.\n";
+            continue;
+        }
+
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        if (opt == 1) return "Clothes";
+        if (opt == 2) return "Groceries";
+        if (opt == 3) return "Medicine";
+        if (opt == 4) {
+            string custom;
+            cout << "Enter your category: ";
+            getline(cin, custom);
+
+            if (custom.empty()) {
+                cout << "Category cannot be empty.\n";
+                continue;
+            }
+            return custom;
+        }
+
+        cout << "Please choose 1-4.\n";
+    }
+}
 
 static inline string trim(const string& s) {
     size_t b = s.find_first_not_of(" \t\r\n");
@@ -93,6 +131,24 @@ static string readNonEmpty(const string& prompt) {
     }
 }
 
+static string readExpenseCategory() {
+    while (true) {
+        cout << "Choose category:\n";
+        cout << "1) Clothing\n";
+        cout << "2) Food\n";
+        cout << "3) Medicine\n";
+        cout << "4) Other (custom)\n";
+        int choice = readInt("Category option: ");
+
+        if (choice == 1) return "Clothing";
+        if (choice == 2) return "Food";
+        if (choice == 3) return "Medicine";
+        if (choice == 4) return readNonEmpty("Custom category: ");
+
+        cout << "Unknown category option.\n";
+    }
+}
+
 static bool readYesNo(const string& prompt) {
     while (true) {
         cout << prompt;
@@ -147,7 +203,7 @@ int main() {
         }
         else if (choice == 2) {
             double amount = readDouble("Amount: ");
-            string category = readNonEmpty("Category: ");
+            string category = readExpenseCategory();
             string date = readDate("Date (YYYY-MM-DD): ");
             cout << "Note (optional): ";
             string note; getline(cin, note);
